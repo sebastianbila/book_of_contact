@@ -1,0 +1,46 @@
+/* Import normalize CSS */
+@import "normalize.css";
+
+/* Import -Montserrat- Font from Google Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f2f2f2;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.input__wrapper {
+  width: 100%;
+  margin-right: 10px;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+

@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import addContact from './modules/overlay'
+import contacts from './modules/contacts'
+import alert from './modules/alert'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+  modules: {
+    addContact,
+    contacts,
+    alert
+  }
 })
