@@ -1,7 +1,7 @@
 <template>
   <div class="field">
     <div class="field__self">
-      <Input placeholder="Phone"/>
+      <Input :placeholder="field.placeholder" v-model="field.value"/>
     </div>
     <div class="field__remove">
       <Button text="X"
@@ -12,7 +12,7 @@
       v-if="isModalOpen"
       header="Delete field"
       content="Are you sure you want to delete field?"
-      :acceptHandler="() => l"
+      :acceptHandler="removeField"
       :closeHandler="toggleModal"/>
   </div>
 </template>
@@ -21,6 +21,7 @@
 import Button from './Button'
 import Input from './Input'
 import AcceptDialog from '../dialogs/AcceptDialog'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Field',
@@ -29,13 +30,23 @@ export default {
     Input,
     Button
   },
+  props: ['field', 'uid'],
   data: () => ({
     isModalOpen: false
   }),
   methods: {
+    ...mapActions(['deleteField']),
+    ...mapMutations(['toggleOverlay']),
     toggleModal () {
       this.isModalOpen = !this.isModalOpen
-      this.$store.dispatch('toggleOverlay')
+      this.toggleOverlay()
+    },
+    removeField () {
+      this.deleteField({
+        contactId: this.uid,
+        fieldId: this.field.id
+      })
+      this.toggleModal()
     }
   }
 }

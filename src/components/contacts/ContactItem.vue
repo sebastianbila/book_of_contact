@@ -2,43 +2,51 @@
   <div class="item">
     <div class="item__details">
       <div class="item__data">
-        <div class="item__avatar">{{ firstName.charAt(0).toUpperCase() }}</div>
-        <div class="item__name">{{ firstName }} {{ lastName }}</div>
+        <div class="item__avatar">{{ contact.firstName.charAt(0).toUpperCase() }}</div>
+        <div class="item__name">{{ contact.firstName }} {{ contact.lastName }}</div>
       </div>
-      <div class="item__phone">{{ phone }}</div>
+      <div class="item__phone">{{ contact.phone }}</div>
     </div>
     <div class="item__controls">
-      <div>Edit</div>
-      <div>Info</div>
+      <div @click="info">
+        <router-link :to="{ name: 'info', params: {uid: contact.uid}}">Info</router-link>
+      </div>
       <div @click="toggleModal">X</div>
     </div>
     <AcceptDialog
       v-if="isRemove"
       header="Delete contact"
       content="Are you sure you want to remove contact?"
-      :acceptHandler="deleteContact"
+      :acceptHandler="removeContact"
       :closeHandler="toggleModal"/>
   </div>
 </template>
 
 <script>
 import AcceptDialog from '../dialogs/AcceptDialog'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   components: { AcceptDialog },
-  props: ['lastName', 'firstName', 'phone'],
+  props: ['contact'],
   data () {
     return {
       isRemove: false // To show modal with accept remove item
     }
   },
   methods: {
+    ...mapActions(['deleteContact']),
+    ...mapMutations(['toggleOverlay', 'updateFields']),
     toggleModal () {
       this.isRemove = !this.isRemove
-      this.$store.dispatch('toggleOverlay')
+      this.toggleOverlay()
     },
-    deleteContact () {
-
+    removeContact () {
+      this.deleteContact(this.contact.uid)
+      this.toggleModal()
+    },
+    info () {
+      this.updateFields([])
     }
   }
 }
@@ -94,14 +102,6 @@ export default {
         transition: .3s ease-in-out background;
 
         &:first-child {
-          background: rgba(87, 184, 70, 0.8);
-
-          &:hover {
-            background: rgba(87, 184, 70, 1);
-          }
-        }
-
-        &:nth-child(2) {
           background: rgba(70, 121, 184, 0.8);
 
           &:hover {

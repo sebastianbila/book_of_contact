@@ -2,13 +2,9 @@ export default {
   state: {
     isOpen: false
   },
-  actions: {
-    toggleOverlay (ctx) {
-      ctx.commit('updateOverlay')
-    }
-  },
+  actions: {},
   mutations: {
-    updateOverlay (state) {
+    toggleOverlay (state) {
       state.isOpen = !state.isOpen
     }
   },

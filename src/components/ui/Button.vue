@@ -48,4 +48,8 @@ export default {
   .cancel {
     background-color: #a11717;
   }
+
+  .info {
+    background-color: #4a98b6;
+  }
 </style>
