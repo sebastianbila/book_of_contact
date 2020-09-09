@@ -3,21 +3,23 @@
     <ContactItem
       v-for="item in getContacts"
       :key="item.id"
-      :firstName="item.firstName"
-      :lastName="item.lastName"
-      :phone="item.phone"/>
+      :contact="item"/>
   </div>
 </template>
 
 <script>
 import ContactItem from './ContactItem'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
     ContactItem
   },
-  computed: mapGetters(['getContacts'])
+  computed: mapGetters(['getContacts']),
+  methods: mapActions(['retrieveContacts']),
+  async mounted () {
+    this.retrieveContacts()
+  }
 }
 </script>
 

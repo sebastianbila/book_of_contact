@@ -14,7 +14,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Alert',
-  computed: mapGetters(['isAlert', 'text', 'type'])
+  computed: mapGetters(['isAlert', 'text', 'type']) // Types: success, info, warning
 }
 </script>
 
@@ -31,7 +31,7 @@ export default {
     align-items: center;
     overflow: hidden;
     position: fixed;
-    top: calc(50% - 480px);
+    top: calc(50% - 580px);
     left: calc(50% - 225px);
     z-index: 1000;
 

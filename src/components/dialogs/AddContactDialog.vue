@@ -29,7 +29,7 @@
 <script>
 import Input from '../ui/Input'
 import Button from '../ui/Button'
-import { mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'AddContact',
@@ -48,20 +48,28 @@ export default {
     closeHandler: Function // Function to close modal window
   },
   methods: {
-    ...mapMutations(['createContact']),
+    ...mapActions(['createContact']),
+    ...mapMutations(['showAlert']),
     addContact () {
-      this.createContact({
-        id: Date.now(),
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phone: this.phone
-      })
+      if (!this.lastName || !this.firstName || !this.phone) {
+        this.showAlert({
+          text: 'Please, fill in all field',
+          type: 'warning'
+        })
+      } else {
+        const contact = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          phone: this.phone
+        }
 
-      this.firstName = ''
-      this.lastName = ''
-      this.phone = ''
+        this.firstName = ''
+        this.lastName = ''
+        this.phone = ''
 
-      this.closeHandler()
+        this.createContact(contact)
+        this.closeHandler()
+      }
     }
   }
 }

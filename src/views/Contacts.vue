@@ -13,9 +13,10 @@
 </template>
 
 <script>
-import ListContacts from './ListContacts'
-import AddContactDialog from '../dialogs/AddContactDialog'
-import Button from '../ui/Button'
+import ListContacts from '../components/contacts/ListContacts'
+import AddContactDialog from '../components/dialogs/AddContactDialog'
+import Button from '../components/ui/Button'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Contacts',
@@ -30,9 +31,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['toggleOverlay']),
     openAddingDialog: function () {
       /* Show overlay */
-      this.$store.dispatch('toggleOverlay')
+      this.toggleOverlay()
 
       /* Toggle modal */
       this.isModal = !this.isModal

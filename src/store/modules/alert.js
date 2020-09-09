@@ -5,7 +5,7 @@ export default {
     status: false
   },
   mutations: {
-    showAlert (state, text = 'Default text', type = 'success') {
+    showAlert (state, { text, type = 'success' }) {
       state.status = true
       state.text = text
       state.type = type
